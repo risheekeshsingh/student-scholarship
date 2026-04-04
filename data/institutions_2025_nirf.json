@@ -1,0 +1,403 @@
+{
+  "metadata": {
+    "reportYear": 2025,
+    "source": "National Institutional Ranking Framework (NIRF)",
+    "totalInstitutions": 500,
+    "lastUpdated": "2025-04-02",
+    "description": "Comprehensive institutional data from NIRF 2025 including rankings, fees, placements, and ROI analysis"
+  },
+  "institutions": [
+    {
+      "rankId": "Overall - 1",
+      "name": "Indian Institute of Technology Madras",
+      "location": { "city": "Chennai", "state": "Tamil Nadu" },
+      "category": "Overall",
+      "rank": 1,
+      "departments": ["Engineering", "Sciences", "Management"],
+      "fees": { "min": 800000, "max": 1000000, "currency": "INR" },
+      "placement": { "medianSalary": "17.50 LPA", "placementRate": "95%" },
+      "roi": "~119%"
+    },
+    {
+      "rankId": "Overall - 2",
+      "name": "Indian Institute of Science",
+      "location": { "city": "Bengaluru", "state": "Karnataka" },
+      "category": "Overall",
+      "rank": 2,
+      "departments": ["Advanced Research", "Sciences", "Engineering"],
+      "fees": { "min": 36000, "max": 100000, "currency": "INR" },
+      "placement": { "medianSalary": "28.00 LPA", "placementRate": "98%" },
+      "roi": "~27500%"
+    },
+    {
+      "rankId": "Overall - 3",
+      "name": "Indian Institute of Technology Bombay",
+      "location": { "city": "Mumbai", "state": "Maharashtra" },
+      "category": "Overall",
+      "rank": 3,
+      "departments": ["Engineering", "Design", "Management"],
+      "fees": { "min": 800000, "max": 950000, "currency": "INR" },
+      "placement": { "medianSalary": "19.61 LPA", "placementRate": "94%" },
+      "roi": "~110%"
+    },
+    {
+      "rankId": "Overall - 4",
+      "name": "Indian Institute of Technology Delhi",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "Overall",
+      "rank": 4,
+      "departments": ["Engineering", "Management", "Sciences"],
+      "fees": { "min": 800000, "max": 900000, "currency": "INR" },
+      "placement": { "medianSalary": "19.08 LPA", "placementRate": "96%" },
+      "roi": "~112%"
+    },
+    {
+      "rankId": "Overall - 5",
+      "name": "Indian Institute of Technology Kanpur",
+      "location": { "city": "Kanpur", "state": "Uttar Pradesh" },
+      "category": "Overall",
+      "rank": 5,
+      "departments": ["Engineering", "Sciences", "Humanities"],
+      "fees": { "min": 800000, "max": 918000, "currency": "INR" },
+      "placement": { "medianSalary": "19.40 LPA", "placementRate": "95%" },
+      "roi": "~111%"
+    },
+    {
+      "rankId": "Overall - 6",
+      "name": "Indian Institute of Technology Kharagpur",
+      "location": { "city": "Kharagpur", "state": "West Bengal" },
+      "category": "Overall",
+      "rank": 6,
+      "departments": ["Engineering", "Law", "Architecture"],
+      "fees": { "min": 800000, "max": 896000, "currency": "INR" },
+      "placement": { "medianSalary": "19.76 LPA", "placementRate": "93%" },
+      "roi": "~120%"
+    },
+    {
+      "rankId": "Overall - 7",
+      "name": "Indian Institute of Technology Roorkee",
+      "location": { "city": "Roorkee", "state": "Uttarakhand" },
+      "category": "Overall",
+      "rank": 7,
+      "departments": ["Engineering", "Architecture", "Management"],
+      "fees": { "min": 850000, "max": 900000, "currency": "INR" },
+      "placement": { "medianSalary": "17.00 LPA", "placementRate": "92%" },
+      "roi": "~100%"
+    },
+    {
+      "rankId": "Overall - 8",
+      "name": "All India Institute of Medical Sciences",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "Overall",
+      "rank": 8,
+      "departments": ["Medicine", "Surgery", "Allied Health"],
+      "fees": { "min": 1628, "max": 5356, "currency": "INR" },
+      "placement": { "medianSalary": "12-15 LPA", "placementRate": "90%" },
+      "roi": "~225000%"
+    },
+    {
+      "rankId": "Overall - 9",
+      "name": "Jawaharlal Nehru University",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "Overall",
+      "rank": 9,
+      "departments": ["Humanities", "Languages", "Sciences"],
+      "fees": { "min": 400, "max": 2000, "currency": "INR" },
+      "placement": { "medianSalary": "9.50 LPA", "placementRate": "85%" },
+      "roi": "~475000%"
+    },
+    {
+      "rankId": "Overall - 10",
+      "name": "Banaras Hindu University",
+      "location": { "city": "Varanasi", "state": "Uttar Pradesh" },
+      "category": "Overall",
+      "rank": 10,
+      "departments": ["Arts", "Sciences", "Medicine", "Agriculture"],
+      "fees": { "min": 10000, "max": 240000, "currency": "INR" },
+      "placement": { "medianSalary": "8.50 LPA", "placementRate": "80%" },
+      "roi": "~3550%"
+    },
+    {
+      "rankId": "Engg - 7",
+      "name": "Indian Institute of Technology Hyderabad",
+      "location": { "city": "Hyderabad", "state": "Telangana" },
+      "category": "Engineering",
+      "rank": 7,
+      "departments": ["Engineering", "AI", "Design"],
+      "fees": { "min": 850000, "max": 1194000, "currency": "INR" },
+      "placement": { "medianSalary": "21.00 LPA", "placementRate": "94%" },
+      "roi": "~98%"
+    },
+    {
+      "rankId": "Engg - 8",
+      "name": "Indian Institute of Technology Guwahati",
+      "location": { "city": "Guwahati", "state": "Assam" },
+      "category": "Engineering",
+      "rank": 8,
+      "departments": ["Engineering", "Data Science", "Design"],
+      "fees": { "min": 850000, "max": 903000, "currency": "INR" },
+      "placement": { "medianSalary": "21.60 LPA", "placementRate": "93%" },
+      "roi": "~139%"
+    },
+    {
+      "rankId": "Engg - 11",
+      "name": "Birla Institute of Technology & Science",
+      "location": { "city": "Pilani", "state": "Rajasthan" },
+      "category": "Engineering",
+      "rank": 11,
+      "departments": ["Engineering", "Pharmacy", "Sciences"],
+      "fees": { "min": 2350000, "max": 2600000, "currency": "INR" },
+      "placement": { "medianSalary": "18.20 LPA", "placementRate": "95%" },
+      "roi": "~38%"
+    },
+    {
+      "rankId": "Engg - 18",
+      "name": "Jadavpur University",
+      "location": { "city": "Kolkata", "state": "West Bengal" },
+      "category": "Engineering",
+      "rank": 18,
+      "departments": ["Engineering", "Arts", "Sciences"],
+      "fees": { "min": 21000, "max": 85460, "currency": "INR" },
+      "placement": { "medianSalary": "10.00 LPA", "placementRate": "88%" },
+      "roi": "~11662%"
+    },
+    {
+      "rankId": "Mgmt - 1",
+      "name": "Indian Institute of Management Ahmedabad",
+      "location": { "city": "Ahmedabad", "state": "Gujarat" },
+      "category": "Management",
+      "rank": 1,
+      "departments": ["PGP", "PGP-FABM", "MBA"],
+      "fees": { "min": 2650000, "max": 3150000, "currency": "INR" },
+      "placement": { "medianSalary": "34.41 LPA", "placementRate": "100%" },
+      "roi": "~98%"
+    },
+    {
+      "rankId": "Mgmt - 2",
+      "name": "Indian Institute of Management Bangalore",
+      "location": { "city": "Bengaluru", "state": "Karnataka" },
+      "category": "Management",
+      "rank": 2,
+      "departments": ["PGP", "EPGP", "MBA"],
+      "fees": { "min": 2600000, "max": 2850000, "currency": "INR" },
+      "placement": { "medianSalary": "35.92 LPA", "placementRate": "100%" },
+      "roi": "~105%"
+    },
+    {
+      "rankId": "Mgmt - 6",
+      "name": "Indian Institute of Management Mumbai",
+      "location": { "city": "Mumbai", "state": "Maharashtra" },
+      "category": "Management",
+      "rank": 6,
+      "departments": ["MBA", "Sustainability"],
+      "fees": { "min": 2100000, "max": 2350000, "currency": "INR" },
+      "placement": { "medianSalary": "33.00 LPA", "placementRate": "100%" },
+      "roi": "~113%"
+    },
+    {
+      "rankId": "Mgmt - 96",
+      "name": "Faculty of Management Studies (FMS)",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "Management",
+      "rank": 96,
+      "departments": ["MBA"],
+      "fees": { "min": 243000, "max": 243000, "currency": "INR" },
+      "placement": { "medianSalary": "34.10 LPA", "placementRate": "100%" },
+      "roi": "~1400%",
+      "specialNote": "Astronomical ROI - elite public management education"
+    },
+    {
+      "rankId": "Medical - 1",
+      "name": "All India Institute of Medical Sciences",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "Medical",
+      "rank": 1,
+      "departments": ["MBBS", "MD", "MS"],
+      "fees": { "min": 1628, "max": 5356, "currency": "INR" },
+      "placement": { "medianSalary": "12-15 LPA", "placementRate": "90%" },
+      "roi": "~225000%",
+      "specialNote": "State-subsidized public good"
+    },
+    {
+      "rankId": "Medical - 3",
+      "name": "Christian Medical College",
+      "location": { "city": "Vellore", "state": "Tamil Nadu" },
+      "category": "Medical",
+      "rank": 3,
+      "departments": ["MBBS", "MD", "MS"],
+      "fees": { "min": 150000, "max": 500000, "currency": "INR" },
+      "placement": { "medianSalary": "8-12 LPA", "placementRate": "85%" },
+      "roi": "~1600%",
+      "specialNote": "Charitable model with relatively low fees"
+    },
+    {
+      "rankId": "Medical - 9",
+      "name": "Amrita Vishwa Vidyapeetham",
+      "location": { "city": "Coimbatore", "state": "Tamil Nadu" },
+      "category": "Medical",
+      "rank": 9,
+      "departments": ["MBBS", "MD"],
+      "fees": { "min": 8000000, "max": 12000000, "currency": "INR" },
+      "placement": { "medianSalary": "10.00 LPA", "placementRate": "80%" },
+      "roi": "~-17%",
+      "specialNote": "Private medical education - high cost, lower immediate ROI"
+    },
+    {
+      "rankId": "Law - 1",
+      "name": "National Law School of India University",
+      "location": { "city": "Bengaluru", "state": "Karnataka" },
+      "category": "Law",
+      "rank": 1,
+      "departments": ["BA LLB", "LLM"],
+      "fees": { "min": 1000000, "max": 1500000, "currency": "INR" },
+      "placement": { "medianSalary": "16.00 LPA", "placementRate": "90%" },
+      "roi": "~67%"
+    },
+    {
+      "rankId": "Law - 2",
+      "name": "National Law University (NLU) Delhi",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "Law",
+      "rank": 2,
+      "departments": ["BA LLB", "LLM"],
+      "fees": { "min": 800000, "max": 1200000, "currency": "INR" },
+      "placement": { "medianSalary": "15.00 LPA", "placementRate": "88%" },
+      "roi": "~75%"
+    },
+    {
+      "rankId": "Coll - 1",
+      "name": "Hindu College",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "College",
+      "rank": 1,
+      "departments": ["Arts", "Science", "Commerce"],
+      "fees": { "min": 65000, "max": 88000, "currency": "INR" },
+      "placement": { "medianSalary": "7.88-9.50 LPA", "placementRate": "85%" },
+      "roi": "~10700%"
+    },
+    {
+      "rankId": "Coll - 2",
+      "name": "Miranda House",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "College",
+      "rank": 2,
+      "departments": ["Arts", "Science"],
+      "fees": { "min": 45000, "max": 60000, "currency": "INR" },
+      "placement": { "medianSalary": "6-7 LPA", "placementRate": "82%" },
+      "roi": "~9900%"
+    },
+    {
+      "rankId": "Agri - 1",
+      "name": "Indian Agricultural Research Institute",
+      "location": { "city": "New Delhi", "state": "Delhi" },
+      "category": "Agriculture",
+      "rank": 1,
+      "departments": ["Agricultural Sciences", "Research"],
+      "fees": { "min": 30000, "max": 70000, "currency": "INR" },
+      "placement": { "medianSalary": "7-9 LPA", "placementRate": "85%" },
+      "roi": "~9000%",
+      "specialNote": "Government commitment to agricultural technology"
+    }
+  ],
+  "summaryStatistics": {
+    "totalParticipatingInstitutions2025": 14163,
+    "growthFrom2016": "297% (from 3,565 to 14,163)",
+    "categories": [
+      "Overall Rankings",
+      "Engineering",
+      "Management",
+      "Medical",
+      "Dental",
+      "Law",
+      "Architecture",
+      "Agriculture",
+      "Pharmacy",
+      "State Public Universities",
+      "Open Universities",
+      "Skill Universities"
+    ]
+  },
+  "keyInsights": {
+    "highest_roi": {
+      "institution": "Indian Institute of Science",
+      "roi": "~27500%",
+      "reason": "Extremely low fees (₹36,000-₹1,00,000) with highest median salary (₹28 LPA)"
+    },
+    "highest_salary": {
+      "institution": "Indian Institute of Management Bangalore",
+      "salary": "35.92 LPA",
+      "placeRate": "100%"
+    },
+    "best_value_management": {
+      "institution": "Faculty of Management Studies (FMS), Delhi",
+      "roi": "1400%+",
+      "fee": "₹2,43,000 total",
+      "salary": "34.10 LPA"
+    },
+    "medical_education_disparity": {
+      "govt_subsidy": "AIIMS: ₹1,628-₹5,356",
+      "private_cost": "₹50 lakhs - ₹1.38 crore",
+      "ratio": "100:1000"
+    },
+    "engineering_excellence": {
+      "government_iits": "₹8-9.5 lakhs with 15-22 LPA salary",
+      "private_bits": "₹23.5-26 lakhs with 18.20 LPA salary",
+      "government_advantage": "Better ROI despite lower package"
+    }
+  },
+  "regional_hubs": {
+    "tamil_nadu": "Highest density of top-ranked institutions in engineering and arts",
+    "delhi": "Epicenter for elite undergraduate excellence (Delhi University colleges)",
+    "maharashtra": "Major hub for management and specialized institutes",
+    "karnataka": "Balanced excellence across multiple categories"
+  },
+  "evaluation_framework": {
+    "teaching_learning_resources": {
+      "weightage": "30%",
+      "metrics": [
+        "Student strength",
+        "Faculty-to-student ratio",
+        "Financial resources per student",
+        "NEP 2020 compliance",
+        "Regional language courses",
+        "Indian Knowledge Systems integration"
+      ]
+    },
+    "research_professional_practice": {
+      "weightage": "30%",
+      "metrics": [
+        "Publication volume",
+        "Citation impact",
+        "Patents filed, published, granted",
+        "Negative marking for retracted articles"
+      ]
+    },
+    "graduation_outcomes": {
+      "weightage": "20%",
+      "metrics": [
+        "Campus placement percentage",
+        "Median salary",
+        "Student progression to top global institutions"
+      ]
+    },
+    "outreach_inclusivity": {
+      "weightage": "10%",
+      "metrics": [
+        "Women percentage (students and faculty)",
+        "Economically/socially challenged students",
+        "Facilities for physically challenged"
+      ]
+    },
+    "perception": {
+      "weightage": "10%",
+      "metrics": [
+        "Peer academic reviews",
+        "Employer feedback"
+      ]
+    },
+    "sustainable_development_goals": {
+      "weightage": "Added category",
+      "focus": "Environmental sustainability and societal equity"
+    }
+  }
+}

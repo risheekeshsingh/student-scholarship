@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Junior Research Fellowship (JRF)",
+    "provider": "University Grants Commission (UGC)",
+    "providerType": "Government",
+    "category": "All",
+    "degreeLevel": "Ph.D",
+    "stipend": "₹37,000 / month",
+    "applyUrl": "https://ugcnet.nta.nic.in/"
+  },
+  {
+    "name": "Prime Minister's Research Fellowship (PMRF)",
+    "provider": "Govt of India (MHRD)",
+    "providerType": "Government",
+    "category": "All",
+    "degreeLevel": "Ph.D",
+    "stipend": "₹80,000 / month",
+    "applyUrl": "https://www.pmrf.in/"
+  },
+  {
+    "name": "National Fellowship for SC Students",
+    "provider": "Ministry of Social Justice & Empowerment",
+    "providerType": "Government",
+    "category": "SC",
+    "degreeLevel": "M.Phil / Ph.D",
+    "stipend": "₹35,000 / month",
+    "applyUrl": "https://scholarships.gov.in/"
+  },
+  {
+    "name": "CSIR - Senior Research Fellowship (SRF)",
+    "provider": "Council of Scientific & Industrial Research",
+    "providerType": "Government",
+    "category": "All",
+    "degreeLevel": "Ph.D",
+    "stipend": "₹42,000 / month",
+    "applyUrl": "https://csirhrdg.res.in/"
+  },
+  {
+    "name": "UGC Post-Doctoral Fellowship for Women",
+    "provider": "University Grants Commission (UGC)",
+    "providerType": "Government",
+    "category": "Women",
+    "degreeLevel": "Post-Doctoral",
+    "stipend": "₹47,000 / month",
+    "applyUrl": "https://ugc.ac.in/"
+  },
+  {
+    "name": "Kishore Vaigyanik Protsahan Yojana (KVPY) Fellowship",
+    "provider": "Department of Science and Technology",
+    "providerType": "Government",
+    "category": "All",
+    "degreeLevel": "B.Sc / BS",
+    "stipend": "₹5,000 / month",
+    "applyUrl": "http://kvpy.iisc.ac.in/"
+  },
+  {
+    "name": "Tata Innovation Fellowship",
+    "provider": "Tata Trusts",
+    "providerType": "Private",
+    "category": "All",
+    "degreeLevel": "Post-Doctoral / Ph.D",
+    "stipend": "₹25,000 / month + Research Grant",
+    "applyUrl": "https://www.tatatrusts.org/"
+  },
+  {
+    "name": "Google India Ph.D. Fellowship",
+    "provider": "Google Research India",
+    "providerType": "Private",
+    "category": "All",
+    "degreeLevel": "Ph.D in Computer Science",
+    "stipend": "₹50,000 / month",
+    "applyUrl": "https://research.google/outreach/phd-fellowship/"
+  },
+  {
+    "name": "Inlaks Research Travel Fellowship",
+    "provider": "Inlaks Shivdasani Foundation",
+    "providerType": "Private",
+    "category": "All",
+    "degreeLevel": "Ph.D",
+    "stipend": "Grant for international travel",
+    "applyUrl": "https://www.inlaksfoundation.org/"
+  },
+  {
+    "name": "Adobe Research Fellowship India",
+    "provider": "Adobe Artificial Intelligence Lab",
+    "providerType": "Private",
+    "category": "All",
+    "degreeLevel": "Ph.D",
+    "stipend": "₹1,00,000 one-time + Mentorship",
+    "applyUrl": "https://research.adobe.com/fellowship/"
+  },
+  {
+    "name": "Infosys Science Foundation Fellowship",
+    "provider": "Infosys",
+    "providerType": "Private",
+    "category": "All",
+    "degreeLevel": "Ph.D / Post-Doctoral",
+    "stipend": "₹35,000 / month",
+    "applyUrl": "https://www.infosys-science-foundation.com/"
+  },
+  {
+    "name": "Microsoft Research PhD Fellowship India",
+    "provider": "Microsoft Research",
+    "providerType": "Private",
+    "category": "All",
+    "degreeLevel": "Ph.D in Tech / AI",
+    "stipend": "Monthly Stipend + Travel Grants",
+    "applyUrl": "https://www.microsoft.com/en-us/research/academic-program/phd-fellowship/"
+  },
+  {
+    "name": "Swami Vivekananda Single Girl Child Fellowship",
+    "provider": "UGC",
+    "providerType": "Government",
+    "category": "Single Girl Child",
+    "degreeLevel": "Ph.D",
+    "stipend": "₹31,000 / month",
+    "applyUrl": "https://ugc.ac.in/"
+  },
+  {
+    "name": "L'Oréal India For Young Women In Science Fellowship",
+    "provider": "L'Oréal Foundation",
+    "providerType": "Private",
+    "category": "Women",
+    "degreeLevel": "Undergraduate",
+    "stipend": "₹2,50,000 Total Grant",
+    "applyUrl": "https://www.loreal.com/en/india/"
+  }
+]

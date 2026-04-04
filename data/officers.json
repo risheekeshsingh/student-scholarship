@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Rajesh Kumar",
+    "designation": "State Nodal Officer (SNO)",
+    "ministry": "Ministry of Minority Affairs",
+    "scheme": "Post Matric Scholarships Scheme for Minorities",
+    "state": "Maharashtra",
+    "district": "Mumbai",
+    "zone": "West Zone",
+    "email": "rajesh.kumar@gov.in",
+    "phone": "+91-9876543210"
+  },
+  {
+    "name": "Anita Desai",
+    "designation": "District Nodal Officer (DNO)",
+    "ministry": "Empowerment of Persons with Disabilities",
+    "scheme": "Top Class Education Scheme for Students with Disabilities",
+    "state": "Maharashtra",
+    "district": "Pune",
+    "zone": "West Zone",
+    "email": "anita.dno@gov.in",
+    "phone": "+91-9876543211"
+  },
+  {
+    "name": "Vikram Singh",
+    "designation": "Ministry Nodal Officer",
+    "ministry": "Ministry of Social Justice",
+    "scheme": "PM Yasasvi Central Sector Scheme",
+    "state": "Delhi",
+    "district": "New Delhi",
+    "zone": "North Zone",
+    "email": "vikram.mno@gov.in",
+    "phone": "+91-9876543212"
+  },
+  {
+    "name": "Priya Sharma",
+    "designation": "State Nodal Officer (SNO)",
+    "ministry": "Ministry of Tribal Affairs",
+    "scheme": "National Fellowship and Scholarship for Higher Education of ST Students",
+    "state": "Karnataka",
+    "district": "Bangalore",
+    "zone": "South Zone",
+    "email": "priya.st@gov.in",
+    "phone": "+91-9876543213"
+  },
+  {
+    "name": "Suresh Reddy",
+    "designation": "District Nodal Officer (DNO)",
+    "ministry": "Ministry of Minority Affairs",
+    "scheme": "Merit Cum Means Scholarship For Professional and Technical Courses CS",
+    "state": "Karnataka",
+    "district": "Mysore",
+    "zone": "South Zone",
+    "email": "suresh.reddy@gov.in",
+    "phone": "+91-9876543214"
+  }
+]
