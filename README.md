@@ -93,7 +93,7 @@ Student-Scholarship/
 
  📸 Screenshots 
 
-* Home Page  
+* Home Page  Screenshot 2026-04-06 171544.png
 * Student Dashboard   C:\Users\rishe\OneDrive\Desktop\schlor\image-1.png
 * Application Form   C:\Users\rishe\OneDrive\Desktop\schlor\image-2.png
 * Admin Panel   C:\Users\rishe\OneDrive\Desktop\schlor\image.png
