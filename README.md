@@ -27,24 +27,6 @@ LayerTechnologyRuntimeNode.js (CommonJS)FrameworkExpress.js v5DatabaseMongoDB (v
 💾 In-Memory DB for Testing — Uses mongodb-memory-server for seamless local testing without a live MongoDB instance
 
 
-📁 Project Structure
-student-scholarship/
-├── controllers/          # Route handler logic (business logic layer)
-├── data/                 # Static data files
-├── frontend/             # HTML, CSS, JS frontend files
-├── models/               # Mongoose schemas (Student, Scholarship, Application)
-├── routes/               # Express route definitions
-├── uploads/              # Uploaded documents (Multer destination)
-├── utils/                # Helper utilities (email sender, AI matcher, etc.)
-├── node_modules/         # Dependencies
-├── .env                  # Environment variables (not committed)
-├── Indian_Colleges_Universities_NIRF_Dataset.xlsx  # NIRF ranking dataset
-├── server.js             # App entry point
-├── package.json          # Project metadata & scripts
-└── README.md
-
-
-
 
 
 
@@ -66,21 +48,6 @@ Node.js >= 18.x
 npm >= 9.x
 MongoDB (optional — in-memory DB is used by default for local dev)
 
-Steps
-bash# 1. Clone the repository
-git clone https://github.com/risheekeshsingh/student-scholarship.git
-cd student-scholarship
-
-# 2. Install dependencies
-npm install
-
-# 3. Set up environment variables
-cp .env.example .env
-# Edit .env with your credentials
-
-# 4. Start the server
-npm start
-The server will start at http://localhost:3000 (or whichever port is set in .env).
 
 🔐 Environment Variables
 Create a .env file in the root directory with the following keys:
@@ -91,10 +58,6 @@ EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_app_password_here
 
 ⚠️ Note: Never commit your .env file. It's already in .gitignore (or should be).
-
-
-📡 API Endpoints
-MethodEndpointDescriptionGET/api/scholarshipsList all scholarshipsPOST/api/students/registerRegister a new studentPOST/api/applications/applySubmit a scholarship applicationGET/api/applications/:idGet application status by IDPOST/api/ai/matchAI-powered scholarship matchingPOST/api/uploadUpload supporting documents
 
 🏆 Advantages
 
