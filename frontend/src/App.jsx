@@ -53,11 +53,7 @@ function App() {
   const [offLoading, setOffLoading] = useState(false);
   const [offSearched, setOffSearched] = useState(false);
 
-  // State for Admin Dataset Upload
-  const [uploadFile, setUploadFile] = useState(null);
-  const [uploadStatus, setUploadStatus] = useState(null); // null | { type: 'success'|'error', message, fileInfo }
-  const [uploadLoading, setUploadLoading] = useState(false);
-  const [isDragOver, setIsDragOver] = useState(false);
+
 
   // State for Secure Application Portal
   const [portalMode, setPortalMode] = useState('apply'); // 'apply' or 'status'
@@ -288,37 +284,7 @@ function App() {
     }
   };
 
-  // --- Handler for Dataset Upload ---
-  const handleUpload = async () => {
-    if (!uploadFile) {
-      setUploadStatus({ type: 'error', message: 'Please select a file first.' });
-      return;
-    }
-    setUploadLoading(true);
-    setUploadStatus(null);
 
-    const formData = new FormData();
-    formData.append('file', uploadFile);
-
-    try {
-      const response = await fetch('http://localhost:5000/api/v1/upload', {
-        method: 'POST',
-        headers: { 'X-API-Key': 'nirf-secure-key-2026' },
-        body: formData
-      });
-      const result = await response.json();
-      if (response.ok) {
-        setUploadStatus({ type: 'success', message: result.message, fileInfo: result.file });
-        setUploadFile(null);
-      } else {
-        setUploadStatus({ type: 'error', message: result.detail || 'Upload failed.' });
-      }
-    } catch (err) {
-      setUploadStatus({ type: 'error', message: '⚠️ Network error. Is the server running?' });
-    } finally {
-      setUploadLoading(false);
-    }
-  };
 
   // --- Handler for Deadline Alerts ---
   const handleAlertSubscribe = async (scholarship) => {
@@ -423,7 +389,7 @@ function App() {
             <li><button onClick={() => switchTab('officers')} className={currentTab === 'officers' ? 'active' : ''}>Officers</button></li>
             <li><button onClick={() => switchTab('public')} className={currentTab === 'public' ? 'active' : ''}>Public</button></li>
             <li><button onClick={() => switchTab('fellowships')} className={currentTab === 'fellowships' ? 'active' : ''}>Fellowship</button></li>
-            <li><button onClick={() => switchTab('upload')} className={currentTab === 'upload' ? 'active' : ''}>📤 Admin Upload</button></li>
+
           </ul>
         </div>
       </nav>
@@ -1188,117 +1154,7 @@ function App() {
         )}
       </div>
 
-        {/* ----- ADMIN DATASET UPLOAD VIEW ----- */}
-        {currentTab === 'upload' && (
-          <main className="main-content fade-in" style={{ justifyContent: 'center', alignItems: 'flex-start', paddingTop: '2rem' }}>
-            <section className="form-section glass-panel" style={{ flex: '1', maxWidth: '640px', margin: '0 auto' }}>
-              <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>📤</div>
-                <h2 style={{ color: 'var(--text-main)', marginBottom: '0.25rem' }}>Admin Dataset Upload</h2>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Upload NIRF datasets (JSON, CSV, XLSX, TXT) — max 10 MB</p>
-              </div>
 
-              {/* Drag & Drop Zone */}
-              <div
-                id="upload-dropzone"
-                onDragOver={e => { e.preventDefault(); setIsDragOver(true); }}
-                onDragLeave={() => setIsDragOver(false)}
-                onDrop={e => {
-                  e.preventDefault();
-                  setIsDragOver(false);
-                  const droppedFile = e.dataTransfer.files[0];
-                  if (droppedFile) { setUploadFile(droppedFile); setUploadStatus(null); }
-                }}
-                style={{
-                  border: `2px dashed ${isDragOver ? 'var(--primary)' : 'rgba(255,255,255,0.2)'}`,
-                  borderRadius: '16px',
-                  padding: '2.5rem 1.5rem',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  background: isDragOver ? 'rgba(99,102,241,0.08)' : 'rgba(255,255,255,0.03)',
-                  transition: 'all 0.3s ease',
-                  marginBottom: '1.5rem'
-                }}
-                onClick={() => document.getElementById('upload-file-input').click()}
-              >
-                <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>
-                  {uploadFile ? '📄' : '☁️'}
-                </div>
-                {uploadFile ? (
-                  <>
-                    <p style={{ color: 'var(--primary)', fontWeight: '600', marginBottom: '0.25rem' }}>{uploadFile.name}</p>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{(uploadFile.size / 1024).toFixed(1)} KB — click to change file</p>
-                  </>
-                ) : (
-                  <>
-                    <p style={{ color: 'var(--text-main)', fontWeight: '600', marginBottom: '0.25rem' }}>Drag & drop your dataset here</p>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>or click to browse</p>
-                  </>
-                )}
-              </div>
-
-              {/* Hidden native file input */}
-              <input
-                id="upload-file-input"
-                type="file"
-                accept=".json,.csv,.xlsx,.xls,.txt"
-                style={{ display: 'none' }}
-                onChange={e => {
-                  const f = e.target.files[0];
-                  if (f) { setUploadFile(f); setUploadStatus(null); }
-                  e.target.value = '';
-                }}
-              />
-
-              {/* API Key info box */}
-              <div className="glass-panel" style={{ padding: '0.75rem 1rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem', borderRadius: '10px', background: 'rgba(99,102,241,0.07)', border: '1px solid rgba(99,102,241,0.2)' }}>
-                <span style={{ fontSize: '1.2rem' }}>🔑</span>
-                <div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: '0.1rem' }}>API Key (pre-configured)</p>
-                  <code style={{ fontSize: '0.85rem', color: 'var(--primary)', letterSpacing: '0.05em' }}>nirf-secure-key-2026</code>
-                </div>
-              </div>
-
-              {/* Upload button */}
-              <button
-                id="upload-submit-btn"
-                className="primary-btn"
-                style={{ width: '100%' }}
-                onClick={handleUpload}
-                disabled={uploadLoading || !uploadFile}
-              >
-                {uploadLoading ? <span className="loader"></span> : 'Upload Dataset 🚀'}
-              </button>
-
-              {/* Status feedback */}
-              {uploadStatus && (
-                <div
-                  className="glass-panel fade-in"
-                  style={{
-                    marginTop: '1.5rem',
-                    padding: '1rem 1.25rem',
-                    borderRadius: '12px',
-                    background: uploadStatus.type === 'success' ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.08)',
-                    border: `1px solid ${uploadStatus.type === 'success' ? 'rgba(16,185,129,0.3)' : 'rgba(239,68,68,0.3)'}`,
-                    color: uploadStatus.type === 'success' ? '#10b981' : '#f87171'
-                  }}
-                >
-                  <p style={{ fontWeight: '600', marginBottom: uploadStatus.fileInfo ? '0.75rem' : '0' }}>
-                    {uploadStatus.message}
-                  </p>
-                  {uploadStatus.fileInfo && (
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                      <span>📁 <strong>Name:</strong> {uploadStatus.fileInfo.originalName}</span>
-                      <span>📦 <strong>Type:</strong> {uploadStatus.fileInfo.type}</span>
-                      <span>💾 <strong>Size:</strong> {uploadStatus.fileInfo.sizeKB} KB</span>
-                      <span>🗂️ <strong>Saved as:</strong> {uploadStatus.fileInfo.savedAs}</span>
-                    </div>
-                  )}
-                </div>
-              )}
-            </section>
-          </main>
-        )}
 
     </div>
   );

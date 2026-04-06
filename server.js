@@ -74,10 +74,38 @@ const connectDB = async () => {
         else if (inst.placementPercentage && !isNaN(inst.placementPercentage)) {
           placementPercentage = inst.placementPercentage;
         }
+
+        // Handle location object to string conversion
+        let locationStr = inst.location;
+        let stateStr = inst.state;
+        if (typeof inst.location === 'object' && inst.location !== null) {
+          locationStr = inst.location.city || '';
+          stateStr = inst.location.state || inst.state;
+        }
         
+        // Mock degrees based on category
+        let degrees = ["B.Tech", "M.Tech", "Ph.D"];
+        const cat = String(inst.category || '').toLowerCase();
+        if (cat.includes('overall'))     degrees = ["B.Tech", "MBA", "Ph.D", "B.Sc"];
+        if (cat.includes('management'))  degrees = ["MBA", "Executive MBA", "Post Graduate Diploma"];
+        if (cat.includes('medical'))     degrees = ["MBBS", "MD", "MS", "B.Sc (Nursing)"];
+        if (cat.includes('law'))         degrees = ["BA LLB", "BBA LLB", "LLM"];
+        if (cat.includes('college'))     degrees = ["BA", "B.Sc", "B.Com", "MA"];
+        if (cat.includes('agriculture')) degrees = ["B.Sc (Agri)", "M.Sc (Agri)", "MBA (Agri)"];
+
         return {
           ...inst,
-          placementPercentage: placementPercentage
+          location: locationStr,
+          state: stateStr,
+          placementPercentage: placementPercentage,
+          nirfRanking: inst.rank || 0,
+          degrees: degrees,
+          statistics: {
+            world: (inst.rank || 0) * 10 + Math.floor(Math.random() * 50) + 100,
+            asia: (inst.rank || 0) * 5 + Math.floor(Math.random() * 20) + 50,
+            india: inst.rank || 0,
+            state: Math.floor(Math.random() * 10) + 1
+          }
         };
       });
       

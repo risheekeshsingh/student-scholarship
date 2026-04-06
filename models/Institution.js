@@ -22,6 +22,11 @@ const institutionSchema = new mongoose.Schema({
   annualFee:        { type: Number },           // INR per year (numeric)
   averageFee:       { type: String },           // formatted string kept for compat
   feeAmount:        { type: Number },           // kept for compat
+  fees: {
+    min:            { type: Number },
+    max:            { type: Number },
+    currency:       { type: String, default: 'INR' }
+  },
 
   // Placement
   placementRate:    { type: Number },           // 0-100 numeric
