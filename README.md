@@ -30,7 +30,7 @@ This system reduces paperwork, improves transparency, and ensures faster process
 
 
 
- Frontend:
+Frontend:
 * HTML5
 * CSS3
 * JavaScript
@@ -46,7 +46,6 @@ Backend: Java (Servlets & JSP)
 
 
  📊 System Architecture
-
 The system follows a 3-tier architecture:
 
 1. Presentation Layer (Frontend)
@@ -63,9 +62,7 @@ The system follows a 3-tier architecture:
 6. Admin gives final approval
 7. Student can track application status
 
- 🗂️ Project Structure
-
-```
+🗂️ Project Structure
 Student-Scholarship/
 │── src/
 │   ├── controller/
@@ -83,25 +80,13 @@ Student-Scholarship/
 │   └── schema.sql
 ```
 
- 🔐 Security Features
-
+🔐 Security Features
 * Login Authentication
 * Role-Based Access (Student / Institute / Admin)
 * Input Validation
 * Secure Data Handling
 
-
- 📸 Screenshots 
-
-* Home Page  Screenshot 2026-04-06 171544.png
-* Student Dashboard   C:\Users\rishe\OneDrive\Desktop\schlor\image-1.png
-* Application Form   C:\Users\rishe\OneDrive\Desktop\schlor\image-2.png
-* Admin Panel   C:\Users\rishe\OneDrive\Desktop\schlor\image.png
-                  C:\Users\rishe\OneDrive\Desktop\schlor\image-3.png
-
-
- ⚡ Advantages
-
+⚡ Advantages
 * ✔ Paperless Process
 * ✔ Faster Application Handling
 * ✔ Transparent Approval System
