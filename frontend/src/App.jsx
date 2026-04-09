@@ -63,6 +63,131 @@ function App() {
   const [portalLoading, setPortalLoading] = useState(false);
   const [portalMessage, setPortalMessage] = useState(null);
 
+  // State for Document Verification Section (Enhanced)
+  const [docVerifier, setDocVerifier] = useState({ 
+    studentData: { 
+      name: '', 
+      dob: '', 
+      aadhaar: '', 
+      marks_10: '', 
+      marks_12: '' 
+    },
+    ocrData: {
+      aadhaar_text: '',
+      marksheet10_text: '',
+      marksheet12_text: ''
+    }
+  });
+  const [verificationJSON, setVerificationJSON] = useState(null);
+
+  const handleVerifyDocs = () => {
+    // --- Advanced AI Verification Logic ---
+    const { studentData, ocrData } = docVerifier;
+    const student = studentData;
+    const ocr = ocrData;
+    let confidence = 100;
+    const issues = [];
+    let aadhaarCheck = "Verified";
+    let c10Check = "Verified";
+    let c12Check = "Verified";
+    let nameMatch = "Matched";
+    let dobMatch = "Matched";
+
+    const normalize = (s) => (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    
+    // Fuzzy Name Match (Basic implementation: check overlapping words)
+    const checkFuzzyName = (ocrText, studentName) => {
+      const sName = normalize(studentName);
+      const ocrLow = normalize(ocrText);
+      if (!sName || !ocrLow) return 0;
+      
+      const words = sName.split(' ');
+      const matchedWords = words.filter(w => ocrLow.includes(w));
+      return (matchedWords.length / words.length) * 100;
+    };
+
+    // Marks Extraction & Conversion (Handles % and CGPA)
+    const validateMarks = (ocrText, formMarks) => {
+      if (!ocrText || !formMarks) return { matched: false, error: "Missing Data" };
+      const fMarks = parseFloat(formMarks);
+      
+      // Look for percentages or CGPA
+      const matches = ocrText.match(/(\d{1,3}(?:\.\d+)?)\s*(%|cgpa|grade|points)?/gi) || [];
+      for (let m of matches) {
+        let val = parseFloat(m);
+        if (m.toLowerCase().includes('cgpa') || (val <= 10 && !m.includes('%'))) {
+          val = val * 9.5; // CGPA to % conversion
+        }
+        if (Math.abs(val - fMarks) <= 2) return { matched: true, val }; // 2% tolerance
+      }
+      return { matched: false };
+    };
+
+    // 1. Aadhaar Check
+    const nameConfidence = checkFuzzyName(ocr.aadhaar_text, student.name);
+    if (nameConfidence < 85) {
+      nameMatch = nameConfidence > 50 ? "Partial" : "Failed";
+      if (nameMatch === "Failed") issues.push(`Name Mismatch: Student name not found with required 85% similarity on Aadhaar.`);
+      confidence -= (100 - nameConfidence) / 2;
+    }
+
+    const normDOB = student.dob.replace(/[-\/]/g, '');
+    if (student.dob && !normalize(ocr.aadhaar_text).replace(/[-\/]/g, '').includes(normDOB)) {
+      dobMatch = "Failed";
+      issues.push(`DOB Mismatch: ${student.dob} not found in Aadhaar text.`);
+      confidence -= 10;
+    }
+    if (aadhaarCheck === "Verified" && (nameMatch === "Failed" || dobMatch === "Failed")) aadhaarCheck = "Not Verified";
+
+    // 2. Class 10 Check
+    const c10Res = validateMarks(ocr.marksheet10_text, student.marks_10);
+    if (!c10Res.matched) {
+      c10Check = "Not Verified";
+      issues.push(`Class 10: Percentage/CGPA matching ${student.marks_10}% not found in OCR.`);
+      confidence -= 15;
+    }
+    if (checkFuzzyName(ocr.marksheet10_text, student.name) < 70) {
+      issues.push("Class 10: Student name mismatch on marksheet.");
+      confidence -= 10;
+    }
+
+    // 3. Class 12 Check
+    const c12Res = validateMarks(ocr.marksheet12_text, student.marks_12);
+    if (!c12Res.matched) {
+      c12Check = "Not Verified";
+      issues.push(`Class 12: Percentage/CGPA matching ${student.marks_12}% not found in OCR.`);
+      confidence -= 15;
+    }
+    if (checkFuzzyName(ocr.marksheet12_text, student.name) < 70) {
+      issues.push("Class 12: Student name mismatch on marksheet.");
+      confidence -= 10;
+    }
+
+    // OCR Quality Check (Fallthrough)
+    if (!ocr.aadhaar_text || !ocr.marksheet10_text || !ocr.marksheet12_text) {
+       issues.push("LOW CONFIDENCE: Some document OCR texts are empty or missing.");
+       confidence = Math.min(confidence, 50);
+    }
+
+    // Status Mapping
+    let status = "Verified";
+    if (confidence < 40) status = "Rejected";
+    else if (confidence < 90) status = "Partially Verified";
+
+    setVerificationJSON({
+      status,
+      confidence: `${Math.max(0, Math.round(confidence))}%`,
+      details: {
+        aadhaar_check: aadhaarCheck,
+        name_match: nameMatch,
+        dob_match: dobMatch,
+        class10_check: c10Check,
+        class12_check: c12Check,
+        issues: issues.length > 0 ? issues : ["No issues found. Data looks consistent."]
+      }
+    });
+  };
+
   // State for AI Chatbot
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
@@ -70,6 +195,26 @@ function App() {
   ]);
   const [chatInput, setChatInput] = useState('');
   const [isChatLoading, setIsChatLoading] = useState(false);
+
+  // Age Verification Feature for Chatbot
+  const [ageValue, setAgeValue] = useState('');
+  const [ageResult, setAgeResult] = useState('');
+  const [showAgeChecker, setShowAgeChecker] = useState(false);
+
+  const calculateAgeCategory = () => {
+    const age = parseInt(ageValue);
+    if (ageValue === "" || isNaN(age) || age < 0) {
+      setAgeResult("⚠️ Please enter a valid age.");
+    } else if (age < 13) {
+      setAgeResult("Result: Child 👶");
+    } else if (age < 18) {
+      setAgeResult("Result: Teenager 🧑‍🎓");
+    } else if (age < 65) {
+      setAgeResult("Result: Adult 🧑‍💼");
+    } else {
+      setAgeResult("Result: Senior 👴");
+    }
+  };
 
   // --- Handlers for Scholarships ---
   const handleChange = (e) => {
@@ -387,12 +532,123 @@ function App() {
             <li><button onClick={() => switchTab('institutions')} className={currentTab === 'institutions' ? 'active' : ''}>Institutions</button></li>
             <li><button onClick={() => switchTab('portal')} className={currentTab === 'portal' ? 'active' : ''}>Portal</button></li>
             <li><button onClick={() => switchTab('officers')} className={currentTab === 'officers' ? 'active' : ''}>Officers</button></li>
-            <li><button onClick={() => switchTab('public')} className={currentTab === 'public' ? 'active' : ''}>Public</button></li>
+             <li><button onClick={() => switchTab('public')} className={currentTab === 'public' ? 'active' : ''}>Public</button></li>
             <li><button onClick={() => switchTab('fellowships')} className={currentTab === 'fellowships' ? 'active' : ''}>Fellowship</button></li>
+            <li><button onClick={() => switchTab('verifier')} className={currentTab === 'verifier' ? 'active' : ''}>Verifier 🔍</button></li>
 
           </ul>
         </div>
       </nav>
+
+      {/* ----- DOCUMENT VERIFICATION SECTION ----- */}
+        {currentTab === 'verifier' && (
+          <main className="main-content fade-in">
+             <section className="form-section glass-panel" style={{ flex: '1', margin: '0 auto', maxWidth: '1000px' }}>
+                <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-main)' }}>AI Document Verification Agent</h2>
+                <p style={{ textAlign: 'center', opacity: 0.7, marginBottom: '2rem' }}>Cross-verify Aadhaar and Marksheets against Form Data using OCR simulation.</p>
+                
+                <div className="verifier-grid-layout" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '2rem' }}>
+                  
+                  {/* LEFT: STUDENT FORM DATA */}
+                  <div className="verifier-column">
+                    <h3 style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>1. Student Form Data</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      <div className="input-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="e.g. Rahul Sharma" style={inputStyle} value={docVerifier.studentData.name} onChange={(e) => setDocVerifier({...docVerifier, studentData: {...docVerifier.studentData, name: e.target.value}})} />
+                      </div>
+                      <div className="input-group">
+                        <label>Date of Birth</label>
+                        <input type="text" placeholder="DD-MM-YYYY" style={inputStyle} value={docVerifier.studentData.dob} onChange={(e) => setDocVerifier({...docVerifier, studentData: {...docVerifier.studentData, dob: e.target.value}})} />
+                      </div>
+                      <div className="grid-inputs">
+                        <div className="input-group">
+                          <label>Class 10 Marks (%)</label>
+                          <input type="text" placeholder="e.g. 85 or 9.0" style={inputStyle} value={docVerifier.studentData.marks_10} onChange={(e) => setDocVerifier({...docVerifier, studentData: {...docVerifier.studentData, marks_10: e.target.value}})} />
+                        </div>
+                        <div className="input-group">
+                          <label>Class 12 Marks (%)</label>
+                          <input type="text" placeholder="e.g. 80 or 8.5" style={inputStyle} value={docVerifier.studentData.marks_12} onChange={(e) => setDocVerifier({...docVerifier, studentData: {...docVerifier.studentData, marks_12: e.target.value}})} />
+                        </div>
+                      </div>
+                    </div>
+
+                    <h3 style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '1rem', marginTop: '2rem' }}>2. OCR Extracted Text</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      <div className="input-group">
+                        <label>Aadhaar Card Text</label>
+                        <textarea placeholder="Paste text extracted from Aadhaar..." style={textAreaStyle} value={docVerifier.ocrData.aadhaar_text} onChange={(e) => setDocVerifier({...docVerifier, ocrData: {...docVerifier.ocrData, aadhaar_text: e.target.value}})} />
+                      </div>
+                      <div className="input-group">
+                        <label>Class 10 Marksheet Text</label>
+                        <textarea placeholder="Paste text from 10th marksheet..." style={textAreaStyle} value={docVerifier.ocrData.marksheet10_text} onChange={(e) => setDocVerifier({...docVerifier, ocrData: {...docVerifier.ocrData, marksheet10_text: e.target.value}})} />
+                      </div>
+                      <div className="input-group">
+                        <label>Class 12 Marksheet Text</label>
+                        <textarea placeholder="Paste text from 12th marksheet..." style={textAreaStyle} value={docVerifier.ocrData.marksheet12_text} onChange={(e) => setDocVerifier({...docVerifier, ocrData: {...docVerifier.ocrData, marksheet12_text: e.target.value}})} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* RIGHT: REAL-TIME RESULTS */}
+                  <div className="verifier-column">
+                    <button className="primary-btn" style={{ width: '100%', padding: '1.2rem', marginBottom: '1.5rem' }} onClick={handleVerifyDocs}>
+                      Apply AI Verification Protocol 🔍
+                    </button>
+
+                    {verificationJSON && (
+                      <div className="verification-results glass-panel fade-in" style={{ padding: '1.5rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <h3 style={{ margin: 0 }}>Agent Decision</h3>
+                            <span className={`badge ${verificationJSON.status === 'Verified' ? 'safe' : verificationJSON.status === 'Rejected' ? 'urgent' : ''}`}>
+                              {verificationJSON.status}
+                            </span>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', opacity: 0.8 }}>
+                            <span>Confidence Score:</span>
+                            <span style={{ fontWeight: 'bold' }}>{verificationJSON.confidence}</span>
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                          <StatusRow label="Name Match" value={verificationJSON.details.name_match} />
+                          <StatusRow label="DOB Match" value={verificationJSON.details.dob_match} />
+                          <StatusRow label="Aadhaar Document" value={verificationJSON.details.aadhaar_check} />
+                          <StatusRow label="Class 10 Records" value={verificationJSON.details.class10_check} />
+                          <StatusRow label="Class 12 Records" value={verificationJSON.details.class12_check} />
+                        </div>
+
+                        <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+                          <strong style={{ fontSize: '0.85rem', display: 'block', marginBottom: '0.5rem', color: '#f87171' }}>Identified Issues / Flags:</strong>
+                          <ul style={{ fontSize: '0.8rem', paddingLeft: '1.2rem', lineHeight: '1.6' }}>
+                            {verificationJSON.details.issues.map((iss, i) => <li key={i}>{iss}</li>)}
+                          </ul>
+                        </div>
+
+                        <div style={{ marginTop: '1.5rem' }}>
+                          <details style={{ cursor: 'pointer', opacity: 0.4, fontSize: '0.7rem' }}>
+                              <summary>Raw JSON Output</summary>
+                              <pre style={{ background: '#000', padding: '0.5rem', borderRadius: '4px', marginTop: '0.5rem', overflowX: 'auto' }}>
+                                {JSON.stringify(verificationJSON, null, 2)}
+                              </pre>
+                          </details>
+                        </div>
+                      </div>
+                    )}
+
+                    {!verificationJSON && (
+                      <div className="empty-state glass-panel" style={{ height: '300px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <div className="empty-icon">📂</div>
+                        <h3>Awaiting Verification</h3>
+                        <p>Enter form data and OCR text to run protocol.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+             </section>
+          </main>
+        )}
 
       <div className="container main-container">
         {/* ----- STUDENTS (SCHOLARSHIPS) VIEW ----- */}
@@ -1109,6 +1365,46 @@ function App() {
               </div>
               <button className="close-btn" onClick={() => setIsChatOpen(false)} style={{position:'static', fontSize:'1.5rem'}}>&times;</button>
             </div>
+
+            {/* AGE VERIFICATION TOOL PANEL */}
+            <div className="chatbot-tools" style={{ padding: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.03)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.8rem', opacity: 0.8 }}>⚡ Quick Tools:</span>
+                <button 
+                  onClick={() => setShowAgeChecker(!showAgeChecker)}
+                  style={{ fontSize: '0.75rem', background: 'var(--primary)', border: 'none', borderRadius: '4px', padding: '2px 8px', color: 'white', cursor: 'pointer' }}
+                >
+                  {showAgeChecker ? 'Hide Age Checker' : 'Age Verifier'}
+                </button>
+              </div>
+              
+              {showAgeChecker && (
+                <div className="age-checker-container fade-in" style={{ marginTop: '0.5rem', padding: '0.8rem', borderRadius: '8px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <p style={{ fontSize: '0.85rem', marginBottom: '0.5rem', fontWeight: 'bold' }}>Age Verification Code</p>
+                  <p style={{ fontSize: '0.75rem', opacity: 0.8, marginBottom: '0.6rem' }}>Enter an age to check its category:</p>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <input 
+                      type="number" 
+                      value={ageValue}
+                      onChange={(e) => setAgeValue(e.target.value)}
+                      placeholder="Enter age..."
+                      style={{ flex: 1, padding: '0.4rem', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.05)', color: 'white', fontSize: '0.8rem' }}
+                    />
+                    <button 
+                      onClick={calculateAgeCategory}
+                      style={{ padding: '0.4rem 0.8rem', borderRadius: '4px', border: 'none', background: 'var(--primary)', color: 'white', cursor: 'pointer', fontSize: '0.8rem' }}
+                    >
+                      Check
+                    </button>
+                  </div>
+                  {ageResult && (
+                    <div style={{ marginTop: '0.6rem', fontSize: '0.9rem', color: ageResult.includes('⚠️') ? '#fca5a5' : '#10b981', fontWeight: 'bold', textAlign: 'center' }}>
+                      {ageResult}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
             
             <div className="chatbot-messages">
               {chatMessages.map((msg, i) => (
@@ -1159,5 +1455,21 @@ function App() {
     </div>
   );
 }
+
+
+// Helper components for Verifier
+function StatusRow({ label, value }) {
+  const isGood = value === "Matched" || value === "Verified";
+  const isMid = value === "Partial";
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem' }}>
+      <span style={{ opacity: 0.8 }}>{label}:</span>
+      <span style={{ fontWeight: 'bold', color: isGood ? '#10b981' : isMid ? '#fbbf24' : '#f87171' }}>{value}</span>
+    </div>
+  );
+}
+
+const inputStyle = { padding: '0.8rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: 'white', width: '100%' };
+const textAreaStyle = { padding: '0.8rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)', color: 'white', width: '100%', height: '100px', fontSize: '0.85rem' };
 
 export default App;
